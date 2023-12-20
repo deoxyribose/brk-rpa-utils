@@ -1,8 +1,5 @@
 # brk-rpa-utils
 
-[![PyPI - Version](https://img.shields.io/pypi/v/brk-rpa-utils.svg)](https://pypi.org/project/brk-rpa-utils)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/brk-rpa-utils.svg)](https://pypi.org/project/brk-rpa-utils)
-
 -----
 
 **Table of Contents**
@@ -13,7 +10,7 @@
 ## Installation
 
 ```console
-pip install brk-rpa-utils
+pip install git+https://github.com/BorholmsRegionsKommuneIT/brk-rpa-utils.git
 ```
 
 ## License
