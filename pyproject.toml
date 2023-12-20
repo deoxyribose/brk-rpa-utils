@@ -28,7 +28,7 @@ dependencies = [
   "pywin32",
   "playwright",
   "loguru",
-  "python-dotenv"
+  "python-dotenv",
 ]
 
 [project.urls]
