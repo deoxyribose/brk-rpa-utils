@@ -1,14 +1,4 @@
 """
-import os
-import getpass
-from dotenv import load_dotenv  # python-dotenv
-from bs4 import BeautifulSoup
-import pandas as pd
-import re
-import io
-from pathlib import Path
-from loguru import logger
-
 load_dotenv()
 sapshcut_path = Path(os.getenv("SAPSHCUT_PATH"))
 pam_path = os.getenv("PAM_PATH")
@@ -20,10 +10,14 @@ import json
 import subprocess
 import time
 from pathlib import Path
-
+from dotenv import load_dotenv  # python-dotenv
+from bs4 import BeautifulSoup  # BeautifulSoup4
+import pandas as pd
+import re
+import io
+from loguru import logger
 
 import win32com.client  # pywin32
-from loguru import logger as log
 from playwright.sync_api import Playwright
 
 
@@ -54,11 +48,11 @@ def _get_credentials(pam_path, robot_name, fagsystem):
         return username, password
 
     except FileNotFoundError:
-        log.error("File not found", exc_info=True)
+        logger.error("File not found", exc_info=True)
     except json.JSONDecodeError:
-        log.error("Invalid JSON in file", exc_info=True)
+        logger.error("Invalid JSON in file", exc_info=True)
     except Exception:
-        log.error("An error occurred:", exc_info=True)
+        logger.error("An error occurred:", exc_info=True)
 
     return None, None
 
@@ -80,7 +74,7 @@ def start_opus(pam_path, robot_name, sapshcut_path):
     username, password = _get_credentials(pam_path, robot_name, fagsystem="opus")
 
     if not username or not password:
-        log.error("Failed to retrieve credentials for robot", exc_info=True)
+        logger.error("Failed to retrieve credentials for robot", exc_info=True)
         return None
 
     command_args = [
@@ -102,7 +96,7 @@ def start_opus(pam_path, robot_name, sapshcut_path):
         return session
 
     except Exception:
-        log.error("Failed to start SAP session", exc_info=True)
+        logger.error("Failed to start SAP session", exc_info=True)
         return None
 
 
@@ -123,7 +117,7 @@ def start_ri(pam_path, robot_name, ri_url, playwright: Playwright) -> None:
     username, password = _get_credentials(pam_path, robot_name, fagsystem="rollebaseretindgang")
 
     if not username or not password:
-        log.error("Failed to retrieve credentials for robot", exc_info=True)
+        logger.error("Failed to retrieve credentials for robot", exc_info=True)
         return None
 
     try:
@@ -142,7 +136,7 @@ def start_ri(pam_path, robot_name, ri_url, playwright: Playwright) -> None:
         return page, context, browser
 
     except Exception:
-        log.error("An error occurred while logging into the portal", exc_info=True)
+        logger.error("An error occurred while logging into the portal", exc_info=True)
         return None
 
 
