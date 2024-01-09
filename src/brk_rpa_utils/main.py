@@ -1,32 +1,28 @@
 """
-load_dotenv()
-sapshcut_path = Path(os.getenv("SAPSHCUT_PATH"))
-pam_path = os.getenv("PAM_PATH")
-ri_path = os.getenv("RI_PATH")
-robot_name = getpass.getuser()
-"""
-
+import os
 import json
 import subprocess
 import time
 from pathlib import Path
-from dotenv import load_dotenv  # python-dotenv
 from bs4 import BeautifulSoup  # BeautifulSoup4
 import pandas as pd
 import re
 import io
 from loguru import logger
-
 import win32com.client  # pywin32
-from playwright.sync_api import Playwright
+"""
 
 
-def _get_credentials(pam_path, robot_name, fagsystem):
+def _get_credentials(pam_path, robot_name, fagsystem) -> None:
     """
     Internal function to retrieve credentials.
 
+    pam_path = os.getenv("PAM_PATH")
+
     Define pam_path in an .env file in the root of your project. Add paths like so:
     SAPSHCUT_PATH=C:/Program Files (x86)/SAP/FrontEnd/SAPgui/sapshcut.exe
+
+    robot_name = getpass.getuser()
 
     Under the pam_path uri der should be a robot_name.json file with the structure:
 
@@ -57,9 +53,12 @@ def _get_credentials(pam_path, robot_name, fagsystem):
     return None, None
 
 
-def start_opus(pam_path, robot_name, sapshcut_path):
+def start_opus(pam_path, robot_name, sapshcut_path) -> None:
     """
     Starts Opus using sapshcut.exe and credentials from PAM.
+
+    load_dotenv()
+    sapshcut_path = Path(os.getenv("SAPSHCUT_PATH"))
 
     The robot_name.json file should have the structure:
 
@@ -100,10 +99,15 @@ def start_opus(pam_path, robot_name, sapshcut_path):
         return None
 
 
-def start_ri(pam_path, robot_name, ri_url, playwright: Playwright) -> None:
+def start_ri(pam_path, robot_name, ri_url, Playwright) -> None:
     """
     Starts s browser pointed to ri_url (fx https://portal.kmd.dk/irj/portal)
     and logs into Rollebaseret Indgang (RI) using  and credentials from PAM.
+
+    load_dotenv()
+    ri_url = os.getenv("RI_PATH")
+
+    from playwright.sync_api import Playwright
 
     The robot_name.json file should have the structure:
 
