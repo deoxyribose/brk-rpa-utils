@@ -25,7 +25,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "pywin32",
+  #"pywin32",
   "playwright",
   "loguru",
   "python-dotenv",
